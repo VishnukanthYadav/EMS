@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import web_ems.services.DBServiceImpl;
 
 import java.io.IOException;
@@ -25,11 +26,15 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email=request.getParameter("email");
 		String password=request.getParameter("password");
-		System.out.println(email+" "+password);
+		//System.out.println(email+" "+password);
 		DBServiceImpl service=new DBServiceImpl();
 		service.connectDB();
 		boolean status=service.verifyLogin(email, password);
 		if(status) {
+			HttpSession session=request.getSession(true);
+			session.setAttribute("email", email);
+			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/registration.jsp");
+			rd.forward(request, response);
 			
 		}else {
 			//Error message
