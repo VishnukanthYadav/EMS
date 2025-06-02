@@ -17,5 +17,10 @@
             <input type ="submit" value="register" />
          </pre>
      </form>
+     <%
+          if(request.getAttribute("message")!=null){
+        	  out.println(request.getAttribute("message"));
+          }
+     %>
 </body>
 </html>

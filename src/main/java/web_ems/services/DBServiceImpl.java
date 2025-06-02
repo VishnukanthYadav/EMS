@@ -32,4 +32,24 @@ public class DBServiceImpl implements DBService {
 		return false;
 	}
 
+	@Override
+	public ResultSet getUserByEmail(String email) {
+		try {
+			ResultSet result=stmt.executeQuery("select * from user where email='"+email+"'");
+			return result;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public void createRegistration(String name, String email, String course, String mobile, int userId) {
+      try {
+    	  stmt.executeUpdate("insert into registration(name,email,course,mobile,userId) values('"+name+"' ,'"+email+"','"+course+"','"+mobile+"','"+userId+"')");
+      }catch(Exception e) {
+    	  e.printStackTrace();
+      }
+	}
+
 }
